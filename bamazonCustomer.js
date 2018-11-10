@@ -92,8 +92,7 @@ function start(){
                     console.log("Please allow a few moments for the order to process.")
                     console.log("The item will be shipped in 1-3 business days.")    
                 }
-                );
-        
+                );       
             }
             connection.end();
         })
