@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/mark-shin77/bamazon#readme",
   "dependencies": {
+    "align-text": "^1.0.2",
+    "console.table": "^0.10.0",
     "inquirer": "^6.2.0",
     "mysql": "^2.16.0"
   }

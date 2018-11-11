@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var cTable = require('console.table');
 
 // create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -23,21 +24,15 @@ connection.connect(function(err) {
 });
 
 function displayProducts (){
-    connection.query("SELECT * FROM products", function(err, res) {
+    connection.query("SELECT item_id, product_name, price FROM products", function(err, res) {
         if (err) throw err;
-        console.log("\n==================================================================================================");
+        console.log("\n==================================================================================================\n");
         var string = JSON.stringify(res);
         var parse = JSON.parse(string);
-        for (var x = 0; x < parse.length; x++){
-            console.log("Item ID: " + parse[x].item_id);
-            console.log("Product Name: " + parse[x].product_name);
-            console.log("Price: $" + parse[x].price);
-            console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        }
+        console.table(parse);
         console.log("==================================================================================================\n");
+        start();
     });
-    start();
-
 }
 
 function start(){
@@ -68,18 +63,27 @@ function start(){
                 }
             }
         ]).then(function(answer){
-            console.log(answer.numOfItems);
-            if(answer.numOfItems > 200){
+            if(parse[answer.itemId - 1].stock_quantity == 0){
+                console.log("\n==================================================================================================\n");
+                console.log("We're currently sold out of this item, Please check back later!")
+                console.log("\n==================================================================================================\n");
+            }
+            else if(answer.numOfItems > parse[answer.itemId - 1].stock_quantity){
+                console.log("\n==================================================================================================\n");
                 console.log("Insufficient quantity!")
+                console.log("We're very sorry, we currently do not have the amount selected in stock.")
+                console.log("\n==================================================================================================\n");
             }
             else{
                 var quantity = parse[answer.itemId - 1].stock_quantity
+                var product_sales_total = parse[answer.itemId - 1].product_sales
                 var selectedId = answer.itemId;
                 connection.query(
                     "UPDATE products SET ? WHERE ?",
                 [
                     {
-                    stock_quantity: quantity - answer.numOfItems
+                    stock_quantity: quantity - answer.numOfItems,
+                    product_sales: (parse[answer.itemId - 1].price * answer.numOfItems) + product_sales_total
                     },
                     {
                     item_id: selectedId
@@ -87,12 +91,12 @@ function start(){
                 ],
                 function(error) {
                     if (error) throw err;
-                    console.log("Your total comes to: $" + parse[answer.itemId - 1].price)
+                    console.log("Your total comes to: $" + (parse[answer.itemId - 1].price * answer.numOfItems));
                     console.log("You have successfully placed your order!")
                     console.log("Please allow a few moments for the order to process.")
                     console.log("The item will be shipped in 1-3 business days.")    
                 }
-                );       
+                );
             }
             connection.end();
         })

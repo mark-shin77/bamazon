@@ -1,5 +1,6 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var cTable = require("console.table")
 
 // create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -54,39 +55,28 @@ function managerView(){
 }
 
 function viewProducts(){
-    var query = "SELECT * FROM products";
+    var query = "SELECT item_id AS Id, product_name AS Product, Price, stock_quantity AS Stock FROM products";
     connection.query(query, function(err, data){
         if (err) throw err;
         console.log("\n==================================================================================================");
         var string = JSON.stringify(data);
         var parse = JSON.parse(string);
-        for (var x = 0; x < parse.length; x++){
-            console.log("Item ID: " + parse[x].item_id);
-            console.log("Product Name: " + parse[x].product_name);
-            console.log("Price: $" + parse[x].price);
-            console.log("Quantity: " + parse[x].stock_quantity);
-            console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        }
+        console.table(parse);
         console.log("==================================================================================================\n");
         managerView();
     })
 }
 
 function lowInventory(){
-    var query = "SELECT * FROM products WHERE stock_quantity < 5";
+    var query = "SELECT item_id AS Id, product_name AS Product, stock_quantity AS Stock FROM products WHERE stock_quantity < 5";
     connection.query(query, function(err, data){
         if(err) throw err;
         console.log("\n==================================================================================================\n");
         console.log("These items are low in inventory! Look to restock soon!")
-        console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        console.log("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
         var string = JSON.stringify(data);
         var parse = JSON.parse(string);
-        for (var x = 0; x < parse.length; x++){
-            console.log("Item ID: " + parse[x].item_id);
-            console.log("Product Name: " + parse[x].product_name);
-            console.log("In Stock: " + parse[x].stock_quantity);
-            console.log("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        }
+        console.table(parse);
         console.log("\n==================================================================================================\n");
         managerView();
     });
@@ -127,8 +117,8 @@ function addToInventory(){
                     var new_stock = parseInt(quantity) + parseInt(amount);
                     if (error) throw err;
                     console.log("\n==================================================================================================\n");
-                    console.log("The select item has been restocked!");
-                    console.log("There is currently " + new_stock + " of " + parse[answer.restock - 1].product_name + " in stock!");
+                    console.log("The selected item has been restocked!");
+                    console.log("There is currently " + new_stock + " of the '" + parse[answer.restock - 1].product_name + "' in stock!");
                     console.log("\n==================================================================================================\n");
                     managerView();
                 }
@@ -156,15 +146,27 @@ function newProduct(){
             {
                 name: "price",
                 input: "input",
-                message: "How much is the product?"
+                message: "How much is the product?",
+                validate: function(value){
+                    if (isNaN(value) === false) {
+                        return true;
+                    }
+                    return false;
+                }
             },
             {
                 name: "howMany",
                 input: "input",
-                message: "How much stock do we have of the product?"
+                message: "How much stock do we have of the product?",
+                validate: function(value){
+                    if (isNaN(value) === false) {
+                        return true;
+                    }
+                    return false;
+                }
             },
         ]).then(function(answer){
-            var values = [answer.nameOfProduct, answer.nameOfDepartment, answer.price, answer.howMany]
+            var values = [answer.nameOfProduct, answer.nameOfDepartment, answer.price, answer.howMany];
             connection.query(
                 "INSERT INTO products (product_name, department_name, price, stock_quantity) values (?, ?, ?, ?)", values,
                 function(err){
