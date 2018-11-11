@@ -27,7 +27,7 @@ connection.connect(function(err) {
 
 function displayProducts (){
     // Selecting the Columns I want from products table
-    connection.query("SELECT item_id, product_name, price FROM products", function(err, res) {
+    connection.query("SELECT item_id, product_name, price FROM products", function(err, data) {
         if (err) throw err;
         console.log("\n==================================================================================================\n");
         // turning data from SQL table into a string
@@ -45,7 +45,7 @@ function start(){
     // Selecting all from products table
     var query = "SELECT * FROM products";
     // Connecting to SQL to receive data
-    connection.query(query, function(err, res) {
+    connection.query(query, function(err, data) {
         inquirer.prompt([
             {
                 name: "itemId",
