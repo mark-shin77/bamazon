@@ -1,9 +1,11 @@
+-- Delete DB --
 drop database if exists bamazonDB;
-
+-- Create DB --
 create database bamazonDB;
-
+-- Select DB --
 use bamazonDB;
 
+-- Create Products Table --
 CREATE TABLE products
 (
     item_id INT NOT NULL
@@ -20,7 +22,7 @@ CREATE TABLE products
     primary key
     (item_id)
 );
-
+-- Adding information to Products Table --
     insert into products
         (product_name, department_name, price, stock_quantity)
     values
@@ -35,6 +37,7 @@ CREATE TABLE products
         ("Dog Nail Clippers and Trimmer By Boshel", "Pet Supplies", 12.99, 125),
         ("Pet Hair Remover Glove", "Pet Supplies", 6.99, 125);
 
+-- Create Departments Table --
     CREATE TABLE departments
     (
         department_id INT NOT NULL
@@ -47,14 +50,16 @@ CREATE TABLE products
         (department_id)
 );
 
-        insert into departments
-            (department_name, over_head_costs)
-        values
-            ("Automotive", 400),
-            ("Clothing", 500),
-            ("Video Games", 10000),
-            ("Electronics", 7500),
-            ("Pet Supplies", 200);
+-- Adding information to Departments Table --
+    insert into departments
+        (department_name, over_head_costs)
+    values
+        ("Automotive", 400),
+        ("Clothing", 500),
+        ("Video Games", 10000),
+        ("Electronics", 7500),
+        ("Pet Supplies", 200);
 
-        ALTER USER 'root'@'localhost' IDENTIFIED
-        WITH mysql_native_password BY 'amazonPrime';
+-- Setting Connection Password --
+    ALTER USER 'root'@'localhost' IDENTIFIED
+    WITH mysql_native_password BY 'amazonPrime';
