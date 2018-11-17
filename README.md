@@ -3,7 +3,10 @@
 Bamazon is a command line app that allows users to enter as either a customer, manager, or supervisor.  Each role has different interactions with the MySQL database that holds the information.
 
 ### Short Video Presentation
-- Customer Section : https://drive.google.com/file/d/1XLtp1Up3rGe-44nUqd21MfEyhw2ukfg7/view
+- Customer Section : 
+<hr>
+<iframe> https://drive.google.com/file/d/1XLtp1Up3rGe-44nUqd21MfEyhw2ukfg7/view </iframe>
+
 - Manager Section : https://drive.google.com/file/d/1nZdbk8Bq6xzmPqmSV8lDs61zwkWiMO4m/view
 - Supervisor Section : https://drive.google.com/file/d/1030sSR6eQ9dmN6H0vvc8GldXp-wVf6DV/view
 
