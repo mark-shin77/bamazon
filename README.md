@@ -5,7 +5,7 @@ Bamazon is a command line app that allows users to enter as either a customer, m
 ### Short Video Presentation
 - Customer Section : 
 <hr>
-[![Alt text](https://drive.google.com/file/d/1XLtp1Up3rGe-44nUqd21MfEyhw2ukfg7/preview)](https://drive.google.com/file/d/1XLtp1Up3rGe-44nUqd21MfEyhw2ukfg7/preview)
+[![Customer Section](https://pmcdeadline2.files.wordpress.com/2016/01/bamazon_0.jpg?w=301&h=202&crop=1)](https://drive.google.com/file/d/1XLtp1Up3rGe-44nUqd21MfEyhw2ukfg7/view)
 
 - Manager Section : https://drive.google.com/file/d/1nZdbk8Bq6xzmPqmSV8lDs61zwkWiMO4m/view
 - Supervisor Section : https://drive.google.com/file/d/1030sSR6eQ9dmN6H0vvc8GldXp-wVf6DV/view
