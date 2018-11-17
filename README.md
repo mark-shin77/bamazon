@@ -5,7 +5,39 @@ Bamazon is a command line app that allows users to enter as either a customer, m
 ### Short Video Presentation
 - Customer Section : 
 <hr>
-<a href="https://drive.google.com/file/d/1XLtp1Up3rGe-44nUqd21MfEyhw2ukfg7/view"><img src="https://drive.google.com/file/d/1XLtp1Up3rGe-44nUqd21MfEyhw2ukfg7/view" style="width: 500px; max-width: 100%; height: auto" title="Click for the larger version." /></a>
+<!DOCTYPE html>
+<html data-ng-app="castifyExt.App"
+      data-ng-csp
+      class="ng-cloak">
+
+<head>
+  <title data-ng-controller="titleController"
+         data-ng-bind-template="{{  pageTitle }} - Screencastify">Loading...</title>
+  <link rel="stylesheet"
+        href="gen/main.css">
+</head>
+
+<body class="app"
+      layout-fill
+      layout="row">
+  <cf-sync-auth-error-redirector></cf-sync-auth-error-redirector>
+  <cf-sidenav></cf-sidenav>
+  <div class="view"
+       flex
+       layout="column"
+       ui-view></div>
+  <script src="bower_components/angular/angular.min.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.min.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+  <script src="bower_components/hammerjs/hammer.min.js"></script>
+  <script src="bower_components/angular-material/angular-material.min.js"></script>
+  <script src="bower_components/chrome-platform-analytics/google-analytics-bundle.js"></script>
+  <!-- will be built by gulp templateCache -->
+  <script src="components/templates.js"></script>
+<script type="text/javascript" src="/components/app.js"></script></body>
+
+</html>
 
 - Manager Section : https://drive.google.com/file/d/1nZdbk8Bq6xzmPqmSV8lDs61zwkWiMO4m/view
 - Supervisor Section : https://drive.google.com/file/d/1030sSR6eQ9dmN6H0vvc8GldXp-wVf6DV/view
